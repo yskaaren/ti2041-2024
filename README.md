@@ -12,6 +12,8 @@ Requisitos técnicos:
 
 Lineas de comando:
     git clone https://github.com/yskaaren/ti2041-2024.git
+    cd .\Evaluaciones\
+    cd .\Sumativa_1\
     Ejecutar servidor de desarrollo: python manage.py runserver
     Acceder a la aplicación: http://127.0.0.1:8000/productos
 
