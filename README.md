@@ -1,7 +1,7 @@
 # ti2041-2024
 
-# Proyecto Django - Gestión de Productos S.A
-# Aplicación web constuida con Django en Python.
+Proyecto Django - Gestión de Productos S.A
+Aplicación web constuida con Django en Python.
 
 Requisitos técnicos:
     -Requisitos de software:
