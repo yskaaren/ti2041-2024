@@ -1,0 +1,33 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style_resultado.css' %}">
+
+    <title>Producto Registrado</title>
+</head>
+
+<body>
+    <div class="content-container">
+        <h1>Producto registrado con éxito</h1>
+
+        <p>Detalles del producto:</p></br>
+        <ul>
+            <li><strong>Código:</strong> {{ producto.codigo }}</li>
+            <li><strong>Nombre:</strong> {{ producto.nombre }}</li>
+            <li><strong>Marca:</strong> {{ producto.marca }}</li>
+            <li><strong>Fecha de Vencimiento:</strong> {{ producto.fecha_vencimiento }}</li>
+        </ul>
+
+        <br>
+        <a href="{% url 'registrar_producto' %}">Registrar otro producto</a>
+        <br>
+        <a href="{% url 'consultar_productos' %}">Consultar productos registrados</a>
+    </div>
+</body>
+
+</html>
