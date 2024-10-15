@@ -17,3 +17,13 @@ Lineas de comando:
     Ejecutar servidor de desarrollo: python manage.py runserver
     Acceder a la aplicación: http://127.0.0.1:8000/productos
 
+Estructura del proyecto
+    productos: Contiene la app encargada de la gestión de productos, con sus modelos, vistas y templates.
+    templates: Contiene plantillas HTML para consultar, registrar y consultar productos.
+    manage.py: Comando para ejecutar el servidor, migraciones, etc.
+    db.sqlite3: Base de datos utilizada en el proyecto.
+
+
+Usuario admin acceder al administrador de Django y visualizar los modelos creados:
+    user: admin
+    pass: 1234
