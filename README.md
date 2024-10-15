@@ -26,4 +26,4 @@ Estructura del proyecto
 
 Usuario admin acceder al administrador de Django y visualizar los modelos creados:
     user: admin
-    pass: 1234
+    pass: inacap2024
