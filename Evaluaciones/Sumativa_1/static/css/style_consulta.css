@@ -1,61 +1,133 @@
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    background: #D4E09B;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+  background: #d4e09b;
+  min-height: 100vh;
+}
+
+.header {
+	margin: 24px 0px;
 }
 
 h1 {
-    font-family: "Quicksand", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
-    text-align: center;
-    margin-bottom: 20px;
-    color: #333;
+  font-family: "Quicksand", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
 }
 
 table {
-    border-collapse: collapse;
-    width: 80%; 
-    max-width: 800px;
-    background-color: white;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-    margin: 0 auto; 
+  border-collapse: collapse;
+  width: 80%;
+  max-width: 800px;
+  background-color: white;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
 }
 
-th, td {
-    font-family: "Quicksand", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
-    padding: 12px 15px;
-    text-align: left;
-    border: 1px solid #ddd;
+th,
+td {
+  font-family: "Quicksand", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  padding: 12px 15px;
+  text-align: left;
+  border: 1px solid #ddd;
 }
 
 th {
-    font-family: "Quicksand", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
-    background-color: #4CAF50;
-    color: white;
-    font-weight: bold;
-    text-align: center;
+  font-family: "Quicksand", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  background-color: #4caf50;
+  color: white;
+  font-weight: bold;
+  text-align: center;
 }
 
 tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
+  background-color: #f9f9f9;
 }
 
+#marca,
+#categoria,
+#caracteristica {
+  font-family: "Quicksand", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  padding: 12px 15px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
 
+.filtros {
+  display: flex;
+	flex-direction: column;
+	width: 100%;
+  justify-content: center;
+  align-items: center;
+}
 
+form label {
+  font-family: "Quicksand", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  padding: 12px 15px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.header_filtros {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+	padding: 24px;
+}
+
+button {
+  width: 9em;
+  height: 3em;
+  padding: 4px;
+  border-radius: 30em;
+  font-size: 15px;
+  font-family: inherit;
+  border: none;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  cursor: pointer;
+  font-family: "Quicksand", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  color: #000000;
+}
+
+button::before {
+  content: "";
+  width: 0;
+  height: 3em;
+  border-radius: 30em;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-image: linear-gradient(to right, #0fd850 0%, #f9f047 100%);
+  transition: 0.5s ease;
+  display: block;
+  z-index: -1;
+}
+
+button:hover::before {
+  width: 9em;
+}
