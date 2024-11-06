@@ -4,12 +4,27 @@ from django.shortcuts import render, redirect
 from datetime import datetime
 from .models import Producto, Marca, Categoria, Caracteristica
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
+def login_app(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('index')
+        else:
+            messages.error(request, 'Usuario o contraseña incorrectos')
+    return render(request, 'login.html')
 
+@login_required
 def product(request):
-    print("Productos")
     return render(request, 'index.html')
 
+@login_required
 def consultar_productos(request):
     productos = Producto.objects.all()
     
@@ -34,7 +49,7 @@ def consultar_productos(request):
         'categorias': categorias,
     })
 
-
+@login_required
 def generar_codigo_producto():
     letras = string.ascii_uppercase
     numeros = string.digits
@@ -45,6 +60,7 @@ def generar_codigo_producto():
     
     return codigo
 
+@login_required
 def registrar_producto(request):
     if request.method == 'POST':
         nombre = request.POST.get('nombre')
@@ -98,6 +114,7 @@ def registrar_producto(request):
         'categoria': Categoria.objects.all(),
     })
 
+@login_required
 def mostrar_productos(request, producto_id):
     producto = get_object_or_404(Producto, id=producto_id)
     return render(request, 'resultado.html', {'producto': producto})
