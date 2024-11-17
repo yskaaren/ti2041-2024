@@ -28,7 +28,7 @@ Usuario admin acceder al administrador de Django y visualizar los modelos creado
     user: admin
     pass: inacap2024
 
-Usuario login aparte del usuario admin:
+Usuario login que no tiene permisos de administrador:
     user: test
     pass: 1234
 
