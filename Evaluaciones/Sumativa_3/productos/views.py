@@ -7,6 +7,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
+from django.utils import timezone
+from django.http import HttpResponseForbidden
+
 
 def login_app(request):
     if request.method == 'POST':
@@ -15,6 +19,9 @@ def login_app(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
+            request.session['username'] = user.username  
+            request.session['login_date'] = timezone.now().strftime('%Y-%m-%d %H:%M:%S') 
+            request.session['is_admin_product_group'] = user.groups.filter(name='ADMIN_PRODUCTS').exists()  
             return redirect('index')
         else:
             messages.error(request, 'Usuario o contraseña incorrectos')
@@ -22,7 +29,17 @@ def login_app(request):
 
 @login_required
 def product(request):
-    return render(request, 'index.html')
+    # Obtener los datos del usuario desde la sesión
+    username = request.user.username
+    login_date = request.session.get('login_date', 'Desconocida')
+    is_admin_product_group = request.session.get('is_admin_product_group', False)
+
+    # Pasar estos datos al contexto
+    return render(request, 'index.html', {
+        'username': username,
+        'login_date': login_date,
+        'is_admin_product_group': is_admin_product_group,
+    })
 
 @login_required
 def consultar_productos(request):
@@ -61,6 +78,12 @@ def generar_codigo_producto():
 
 @login_required
 def registrar_producto(request):
+    # Verificar si el usuario pertenece al grupo ADMIN_PRODUCTS
+    if not request.user.groups.filter(name='ADMIN_PRODUCTS').exists():
+        # Enviar el mensaje de error a la página de inicio
+        messages.error(request, "No tienes permisos para registrar productos.")
+        return redirect('index') 
+    
     if request.method == 'POST':
         nombre = request.POST.get('nombre')
         marca_nombre = request.POST.get('marca')
@@ -121,3 +144,7 @@ def mostrar_productos(request, producto_id):
 def resultado_producto(request, producto_id):
     producto = get_object_or_404(Producto, id=producto_id)
     return render(request, 'resultado.html', {'producto': producto})
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')

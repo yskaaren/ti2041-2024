@@ -18,26 +18,38 @@
         <div class="header__container">
             <div class="header__logo">
                 <h1>GP S.A</h1>
-                <img
-                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAUxJREFUSEvd1L8vXlEcx/HXIywYSiRMTYwmS034C4SlITqwtGEyNGLAzCYSW5PaDIKJ/0BiadKlQ5MuZkQEsYiBe+Q+ckPvc8994knEGb/n+/28v7/OqWjwqTRY3/sC3L9iu37jU9DLtug1AWfofg6oFrCCJWziW8mqFrGKLUzlAXpxjBt04q4E5BDD+ILtPECw/8IAJrAbCWjFNZrQgatagLkk+w0cYCwS8Bl7OMJQNSbvHXzAeerUhcsIyE98TVq6nM7hMaTWQ9vHaIRw1iVsYl8yg39FFYT7ceyUAJym2Yftezq1KmjBBdrRjz8lYFGA4PQDM2kl07gtCyn67D4mq/oXbZHCL/SKAEF3BAsYRHMBqC5AZPL/d4upIER+xzzWsJ6RyrNHD7nqeJL+jmEVezKAPHtpQNimyfQDm80A8uylAXXPIXYGbxfwAHIkMhmciIgXAAAAAElFTkSuQmCC" />
+                <img src="data:image/png;base64,..." />
             </div>
         </div>
 
-        </div>
         <div class="logout-container">
             {% if user.is_authenticated %}
                 <form action="{% url 'logout' %}" method="post" style="display:inline;">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-danger">Cerrar sesión</button>
                 </form>
+
+                {% if user.is_staff or user.is_superuser %}
+                    <button id="adminButton" onclick="window.location.href='{% url 'admin:index' %}'">Administración</button>
+                {% endif %}
             {% endif %}
         </div>
+        
     </header>
-    </div>
 
     <h1 class="titulo__principal">Gestión de Productos S.A</h1>
+    <p class="eslogan">Te ayudamos a gestionar tus productos fácilmente!</p>
+
+    <div class="alert-container">
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li class="alert">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
     </div>
-    <p class="eslogan">Te ayudamos a gestionar tus productos facilmente!</p>
+
     <div class="botones">
         <button id="registrarProductos" onclick="window.location.href='{% url 'registrar_producto' %}'">Registrar
             producto</button>
@@ -45,9 +57,26 @@
         <button id="consultarProductos" onclick="window.location.href='{% url 'consultar_productos' %}'">Consultar
             productos registrados</button>
     </div>
+
+    <div class="user-info-container">
+        <h3>Información del Usuario Conectado</h3>
+        <p><strong>Nombre:</strong> {{ username }}</p>
+        <p><strong>Fecha de Conexión:</strong> {{ login_date }}</p>
+        <p><strong>¿Es Administrador de Productos?</strong> 
+            {% if is_admin_product_group %}
+                Sí
+            {% else %}
+                No
+            {% endif %}
+        </p>
+    </div>
+
     <div class="background__main">
         <img src="../static/img/fondo_productos.jpg">
     </div>
 </body>
 
 </html>
+
+
+
