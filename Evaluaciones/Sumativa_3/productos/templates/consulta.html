@@ -1,0 +1,92 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style_consulta.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <title>Consultar Productos</title>
+</head>
+
+<body>
+
+    <div class="header">
+        <h1>Consulta de Productos</h1>
+    </div>
+
+
+    <section class="filtros">
+
+    <form method="get">
+        <label for="marca">Marca:</label>
+        <select name="marca" id="marca">
+            <option value="">Todas</option>
+            {% for marca in marcas %}
+                <option value="{{ marca.id }}" {% if request.GET.marca == marca.id|add:"" %}selected{% endif %}>{{ marca.nombre }}</option>
+            {% endfor %}
+        </select>
+    
+        <label for="categoria">Categoría:</label>
+        <select name="categoria" id="categoria">
+            <option value="">Todas</option>
+            {% for categoria in categorias %}
+                <option value="{{ categoria.id }}" {% if request.GET.categoria == categoria.id|add:"" %}selected{% endif %}>{{ categoria.nombre }}</option>
+            {% endfor %}
+        </select>
+    
+        <div class="header_filtros">
+            <button type="button" onclick="window.location.href='{% url 'index' %}'">Volver a Productos</button>
+            <button type="submit">Filtrar Productos</button>
+        </div>
+    </form>
+
+
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Marca</th>
+                <th>Categoría</th>
+                <th>Características</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for producto in productos %}
+            <tr>
+                <td>{{ producto.codigo }}</td>
+                <td>{{ producto.nombre }}</td>
+                <td>{{ producto.precio }}</td>
+                <td>{{ producto.marca.nombre }}</td>
+                <td>
+                    {% if producto.categoria %}
+                    {{ producto.categoria.nombre }}
+                    {% else %}
+                    Sin categoría
+                    {% endif %}
+                </td>
+                <td>
+                    {% for caracteristica in producto.caracteristicas.all %}
+                    <p>{{ caracteristica.nombre }}: {{ caracteristica.valor }}</p>
+                    {% empty %}
+                    No hay características registradas.
+                    {% endfor %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</section>
+
+
+</body>
+
+</html>

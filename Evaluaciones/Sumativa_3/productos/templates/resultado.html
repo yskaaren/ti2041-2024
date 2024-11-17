@@ -1,0 +1,59 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style_resultado.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <title>Producto Registrado</title>
+</head>
+<body>
+    <h1>¡Tu producto se ha registrado con éxito!</h1>
+
+    <h1>Detalles del Producto:</h1>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Marca</th>
+                <th>Categoría</th>
+                <th>Características</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ producto.codigo }}</td>
+                <td>{{ producto.nombre }}</td>
+                <td>{{ producto.precio }}</td>
+                <td>{{ producto.marca.nombre }}</td>
+                <td>
+                    {% if producto.categoria %}
+                        {{ producto.categoria.nombre }}
+                    {% else %}
+                        Sin categoría
+                    {% endif %}
+                </td>
+                <td>
+                    {% if producto.caracteristicas.exists %}
+                        {% for caracteristica in producto.caracteristicas.all %}
+                            <p>{{ caracteristica.nombre }}: {{ caracteristica.valor }}</p>
+                        {% endfor %}
+                    {% else %}
+                        No hay características registradas.
+                    {% endif %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <button onclick="window.location.href='{% url 'consultar_productos' %}'">Consultar Productos</button>
+</body>
+</html>
+

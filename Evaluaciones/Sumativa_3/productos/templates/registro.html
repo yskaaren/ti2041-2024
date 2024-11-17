@@ -1,0 +1,87 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style_registro.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <title>Registrar Producto</title>
+</head>
+<body>
+
+    
+    <form method="post" class="formulario__registro">
+        <h1>Registrar Producto</h1>
+
+        {% if error %}
+            <p style="color:red;">{{ error }}</p>
+        {% endif %}
+
+        {% csrf_token %}
+
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" value="">
+
+        <label for="precio">Precio:</label>
+        <input type="number" step="0.01" id="precio" name="precio" value="">
+
+        <label for="marca">Marca:</label>
+        <input type="text" id="marca" name="marca">
+
+        <div class="categoria">
+            <label for="categoria">Categoría:</label>
+            <select id="categoria" name="categoria">
+                <option value="Perecible">Perecible</option>
+                <option value="No Perecible">No Perecible</option>
+            </select>
+        </div>
+
+        <div id="caracteristicas">
+        </div>
+
+        <button type="button" class="boton_caracteristicas" onclick="agregarCaracteristica()">Agregar Característica</button>
+
+        <label for="fecha_vencimiento">Fecha de Vencimiento:</label>
+        <input type="date" id="fecha_vencimiento" name="fecha_vencimiento" value="">
+
+        <button type="submit">Registrar</button>
+    </form>
+
+    <script>
+        function agregarCaracteristica() {
+            const container = document.getElementById('caracteristicas');
+
+            const caracteristicaDiv = document.createElement('div');
+
+            const select = document.createElement('select');
+            select.name = 'caracteristica_nombre[]'; 
+            const labelSelect = document.createElement('label');
+            labelSelect.innerText = 'Selecciona una característica: ';
+            labelSelect.appendChild(select);
+            caracteristicaDiv.appendChild(labelSelect);
+
+            const opciones = ['Tamaño', 'Peso', 'Color'];
+            opciones.forEach(opcion => {
+                const option = document.createElement('option');
+                option.value = opcion;
+                option.textContent = opcion;
+                select.appendChild(option);
+            });
+
+            const inputValor = document.createElement('input');
+            inputValor.name = 'caracteristica_valor[]'; 
+            const labelValor = document.createElement('label');
+            labelValor.innerText = 'Valor de la característica: ';
+            labelValor.appendChild(inputValor);
+            caracteristicaDiv.appendChild(labelValor);
+
+            container.appendChild(caracteristicaDiv);
+        }
+        agregarCaracteristica()
+    </script>
+</body>
+</html>
