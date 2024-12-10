@@ -1,0 +1,82 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <title>Document</title>
+</head>
+
+<body>
+    <header>
+        <div class="header__container">
+            <div class="header__logo">
+                <h1>GP S.A</h1>
+                <img src="data:image/png;base64,..." />
+            </div>
+        </div>
+
+        <div class="logout-container">
+            {% if user.is_authenticated %}
+                <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Cerrar sesión</button>
+                </form>
+
+                {% if user.is_staff or user.is_superuser %}
+                    <button id="adminButton" onclick="window.location.href='{% url 'admin:index' %}'">Administración</button>
+                {% endif %}
+            {% endif %}
+        </div>
+        
+    </header>
+
+    <h1 class="titulo__principal">Gestión de Productos S.A</h1>
+    <p class="eslogan">Te ayudamos a gestionar tus productos fácilmente!</p>
+
+    <div class="alert-container">
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li class="alert">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+
+    <div class="botones">
+        <button id="registrarProductos" onclick="window.location.href='{% url 'registrar_producto' %}'">Registrar
+            producto</button>
+
+        <button id="consultarProductos" onclick="window.location.href='{% url 'consultar_productos' %}'">Consultar
+            productos registrados</button>
+    </div>
+
+    <div class="user-info-container">
+        <h3>Información del Usuario Conectado</h3>
+        <p><strong>Nombre:</strong> {{ username }}</p>
+        <p><strong>Fecha de Conexión:</strong> {{ login_date }}</p>
+        <p><strong>¿Es Administrador de Productos?</strong> 
+            {% if is_admin_product_group %}
+                Sí
+            {% else %}
+                No
+            {% endif %}
+        </p>
+    </div>
+
+    <div class="background__main">
+        <img src="../static/img/fondo_productos.jpg">
+    </div>
+</body>
+
+</html>
+
+
+
