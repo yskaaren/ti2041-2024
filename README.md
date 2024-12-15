@@ -37,3 +37,5 @@ Primero se verifica que esté habilitada la protección CSRF ya que viene predet
 que manejen solicitudes POST se incluyó el decorador @login_required.
 
 Para verificar que la documentación esté habilitada: http://127.0.0.1:8000/api/docs
+
+La documentación del proyecto está en el código junto a cada servicio.
