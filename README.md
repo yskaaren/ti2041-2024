@@ -31,6 +31,11 @@ Usuario admin acceder al administrador de Django y visualizar los modelos creado
 Usuario login que no tiene permisos de administrador:
     user: test
     pass: 1234
+    
+Usuario login que tiene permisos para modificar productos:
+    user: karen
+    pass: 1234
+    
 
 El método de seguridad utilizado para este proyecto es Protección Contra CSRF (Cross-Site Request Forgery) el cuál evita que un atacante use sesiones activas para enviar peticiones maliciosas.
 Primero se verifica que esté habilitada la protección CSRF ya que viene predeterminada con Django, se incluye el token {% csrf_token %} en los formularios disponibles del proyecto y para proteger las vistas
