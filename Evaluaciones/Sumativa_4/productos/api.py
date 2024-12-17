@@ -3,7 +3,7 @@
 # para que solo los usuarios autorizados puedan realizar estas acciones.
 
 
-from ninja import NinjaAPI, Schema
+from ninja import NinjaAPI, Schema, Redoc
 from productos.security import JWTBearer
 from productos.models import Producto, Marca, Categoria
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -12,7 +12,12 @@ import random, string
 from django.contrib.auth import authenticate
 
 # Crear instancia de NinjaAPI con autenticación JWT
-api = NinjaAPI()
+# Crea la API
+api = NinjaAPI(
+    title="API gestión de productos",
+    description="Para gestionar los productos",
+    version="1.0.0"
+)
 
 # Schemas
 class ProductoSchema(Schema):

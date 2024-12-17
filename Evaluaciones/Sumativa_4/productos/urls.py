@@ -4,6 +4,7 @@ from django.contrib.auth.views import LogoutView
 from productos.api import api
 
 urlpatterns = [
+    path('api/', api.urls),
     path('login/', views.login_app, name='login'),
     path('', views.login_app, name='root'),
     path('index/', views.product, name='index'),
@@ -11,6 +12,4 @@ urlpatterns = [
     path('consultar/', views.consultar_productos, name='consultar_productos'),
     path('resultado/<int:producto_id>/', views.resultado_producto, name='resultado_producto'),
     path('logout/', LogoutView.as_view(), name='logout'),
-    path("api/", api.urls)
-    
 ] 
